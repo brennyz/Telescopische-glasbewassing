@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Telescopische glasbewassing</title>
+  <meta name="description" content="Een ode aan Telescopische Glasbewassing en aan fietsopa Joris. Was ruiten vanaf de bromscootmobiel.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%2313464c' width='32' height='32'/%3E%3Cpath stroke='%23d7f25a' stroke-width='3' d='M6 24l8-14 6 8 6-10'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div class="brand-block">
+        <button type="button" class="logo" id="logo">Telescopische glasbewassing</button>
+        <p class="refrain">scoot scoot opa</p>
+      </div>
+      <div class="top-actions">
+        <p class="soapline" id="soapline"></p>
+        <button type="button" id="mute" aria-pressed="false">Geluid aan</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="screen-start" class="screen" hidden>
+        <p class="permit">Vergunning SCOOT-188 · alleen geldig met een natte zeem</p>
+        <h1>De malefiets van Joris</h1>
+        <p class="lead">Een ode aan de single <em>Telescopische Glasbewassing</em> van De Huilende Rappers, en aan fietsopa. De stok schuift uit. De ruit wordt helder. Iemand zegt: scoot scoot opa.</p>
+        <p id="start-status"></p>
+        <div class="actions">
+          <button type="button" class="primary" data-go="ride">Begin de rit</button>
+          <button type="button" data-go="ode">De ode</button>
+          <button type="button" data-go="cast">Wie rijdt er</button>
+          <button type="button" data-go="shop">De stokken</button>
+          <button type="button" data-go="levels">De wijken</button>
+          <button type="button" data-go="scores">Het bord</button>
+        </div>
+        <ul class="keys">
+          <li>Spatiebalk of de straat: schrobben</li>
+          <li>Pijltjes of 1, 2 en 3: laag, midden, hoog</li>
+          <li>H bij een hobbel: vasthouden</li>
+          <li>T: turbo, als de stok dat kan</li>
+        </ul>
+      </section>
+
+      <section id="screen-ode" class="screen" hidden>
+        <h1>Twee odes, één stoep</h1>
+        <div class="sheet" id="ode-sheet">
+          <div class="ode-copy">
+            <p>De Huilende Rappers brachten op 5 augustus 2024 de single <em>Telescopische Glasbewassing</em> uit, bij Radio Vrijstaande Pilaster. Hij duurt ongeveer twee minuten en tweeënvijftig seconden en loopt op 120 tellen per minuut.</p>
+            <p>Deze site neemt die titel letterlijk. Joris is 1,88 m en rijdt de bromscootmobiel. De telescopische glasbewasserunit schuift uit over de gevel. Daaronder loopt het refrein van dit huis: scoot scoot opa.</p>
+            <p>Dit is een eigen tekening en een eigen tekst. Niet de clip, niet de songtekst en niet de opname.</p>
+            <p><a href="https://music.apple.com/be/album/telescopische-glasbewassing-single/1759534455" target="_blank" rel="noopener noreferrer">Luister de officiële single</a></p>
+          </div>
+          <canvas id="fog" aria-label="Beslagen ruit. Veeg om de ode te lezen."></canvas>
+        </div>
+        <p id="ode-note" hidden>De ruit is gewist. Scoot scoot opa.</p>
+        <div class="actions">
+          <button type="button" id="wipe-ode">Maak de ruit in één beweging schoon</button>
+          <button type="button" data-go="start">Terug</button>
+        </div>
+      </section>
+
+      <section id="screen-cast" class="screen" hidden>
+        <h1>Wie er rijdt</h1>
+        <p class="lead">Iedereen past in hetzelfde zitje. De stok bepaalt hoe de ruiten wijken, niet de rijder.</p>
+        <div class="cards" id="cast-list"></div>
+        <div class="actions">
+          <button type="button" data-go="start">Terug</button>
+        </div>
+      </section>
+
+      <section id="screen-shop" class="screen" hidden>
+        <h1>De stokken</h1>
+        <p class="lead">Zeep komt van schone ruiten en blijft op dit apparaat. Een langere of snellere stok maakt de latere wijken haalbaar.</p>
+        <div class="cards" id="shop-list"></div>
+        <div class="actions">
+          <button type="button" data-go="start">Terug</button>
+          <button type="button" data-go="ride">Weer rijden</button>
+        </div>
+      </section>
+
+      <section id="screen-levels" class="screen" hidden>
+        <h1>De wijken</h1>
+        <p class="lead">Elke wijk is anders, en na de bekende straten blijft de stad doorgaan.</p>
+        <div class="levels" id="level-list"></div>
+        <div class="actions">
+          <button type="button" data-go="start">Terug</button>
+        </div>
+      </section>
+
+      <section id="screen-scores" class="screen" hidden>
+        <h1>Het bord</h1>
+        <p class="lead">Alleen de scores van deze browser. Er is geen gedeeld bord en Joris hoeft nergens een account.</p>
+        <label class="name-row">Naam voor de volgende rit
+          <input id="score-name-board" maxlength="18" autocomplete="nickname">
+        </label>
+        <div class="actions">
+          <button type="button" id="save-board-name">Bewaar de naam</button>
+          <button type="button" id="wipe-scores">Wis het bord</button>
+          <button type="button" data-go="start">Terug</button>
+        </div>
+        <ol id="score-list"></ol>
+      </section>
+
+      <section id="screen-play" class="screen" hidden>
+        <h1 class="sr-only">De rit</h1>
+        <div class="hud" aria-hidden="true">
+          <span id="hud-wijk"></span>
+          <span id="hud-zeep"></span>
+          <span id="hud-miss"></span>
+          <span id="hud-combo"></span>
+          <span id="hud-next"></span>
+        </div>
+        <div class="play-stage" id="play-stage">
+          <canvas id="street" width="960" height="540"></canvas>
+          <div id="bump-banner" class="bump" hidden>
+            <p>Hobbel. Houd vast.</p>
+            <div class="bump-track"><div id="bump-bar"></div></div>
+          </div>
+          <div id="pause-card" class="overlay" hidden>
+            <h2>Pauze</h2>
+            <p>De bromscootmobiel staat stil. De zeep die je al waste blijft staan.</p>
+            <div class="actions">
+              <button type="button" class="primary" id="pause-resume">Verder</button>
+              <button type="button" id="pause-shop">Naar de stokken</button>
+              <button type="button" id="pause-stop">Stoppen</button>
+            </div>
+          </div>
+          <div id="clear-card" class="overlay" hidden>
+            <h2 id="clear-title" tabindex="-1">Wijk schoon</h2>
+            <p id="clear-copy"></p>
+            <div class="actions">
+              <button type="button" class="primary" id="clear-go">Doorrijden</button>
+              <button type="button" id="clear-shop">Naar de stokken</button>
+              <button type="button" id="clear-stop">Bord en stop</button>
+            </div>
+          </div>
+        </div>
+        <div class="lane-row" role="group" aria-label="Hoogte van de stok">
+          <button type="button" data-lane="2">Hoog</button>
+          <button type="button" data-lane="1">Midden</button>
+          <button type="button" data-lane="0">Laag</button>
+        </div>
+        <div class="thumb">
+          <button type="button" id="btn-turbo" hidden>Turbo</button>
+          <button type="button" class="primary wash" id="btn-wash">Schrobben</button>
+          <button type="button" id="btn-pause">Pauze</button>
+        </div>
+        <p class="hint" id="play-hint"></p>
+      </section>
+
+      <section id="screen-over" class="screen" hidden>
+        <h1 id="over-title" tabindex="-1">De rit</h1>
+        <p id="over-copy"></p>
+        <p id="over-stats"></p>
+        <label class="name-row">Naam op het bord
+          <input id="score-name" maxlength="18" autocomplete="nickname">
+        </label>
+        <div class="actions">
+          <button type="button" class="primary" id="over-save">Zet op het bord</button>
+          <button type="button" id="over-again">Zelfde wijk</button>
+          <button type="button" id="over-next">Volgende wijk</button>
+          <button type="button" id="over-shop">Naar de stokken</button>
+          <button type="button" id="over-home">Start</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <p id="live" class="sr-only" aria-live="polite"></p>
+  <noscript>Deze ode heeft JavaScript nodig voor de rit, de zeep en het bord op dit apparaat.</noscript>
+  <script src="js/cast.js"></script>
+  <script src="js/items.js"></script>
+  <script src="js/levelgen.js"></script>
+  <script src="js/score.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/screens.js"></script>
+</body>
+</html>
